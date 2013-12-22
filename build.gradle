@@ -1,0 +1,78 @@
+apply plugin: 'groovy'
+
+group = 'com.haunted.gradle-plugins'
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy:2.+'
+    compile gradleApi()
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle SaveSSD plugin',
+                'Implementation-Version': version,
+                'Built-By': System.getProperty('user.name'),
+                'Built-Date': new Date(),
+                'Built-JDK': System.getProperty('java.version'),
+                'Built-Gradle': gradle.gradleVersion
+    }
+}
+
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+// Publish to maven local repository
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://$buildDir/mvnRepo/")
+            pom.project {
+                artifactId 'SaveSSD'
+                name 'SaveSSD'
+                packaging 'jar'
+                description 'Gradle plugin that helps to save your SSD write cycles by linking project build directory into /tmp on *nix.'
+                url 'https://github.com/populov/gradle-save-ssd-plugin'
+                inceptionYear 2013
+
+                scm {
+                    url 'git@github.com:populov/gradle-save-ssd-plugin.git'
+                    connection 'git@github.com:populov/gradle-save-ssd-plugin.git'
+                    developerConnection 'git@github.com:populov/gradle-save-ssd-plugin.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'Populov'
+                        name 'Serge Populov'
+                        email 'serge@populov.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.9'
+}
