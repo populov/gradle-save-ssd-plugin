@@ -1,7 +1,8 @@
-apply plugin: 'groovy'
-
 group = 'com.haunted.gradle-plugins'
 version = '0.1.0'
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
 
 repositories {
     mavenCentral()
@@ -10,7 +11,6 @@ repositories {
 dependencies {
     compile 'org.codehaus.groovy:groovy:2.+'
     compile gradleApi()
-    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
 jar {
@@ -33,12 +33,12 @@ artifacts {
     archives sourcesJar
 }
 
-// Publish to maven local repository
-apply plugin: 'maven'
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file://$buildDir/mvnRepo/")
+            repository(url: "${bintray_api_base_url}/maven/${bintray_org}/${bintray_repo}/${bintray_package}") {
+                authentication(userName: bintray_username, password: bintray_api_key)
+            }
             pom.project {
                 artifactId 'SaveSSD'
                 name 'SaveSSD'
@@ -48,7 +48,7 @@ uploadArchives {
                 inceptionYear 2013
 
                 scm {
-                    url 'git@github.com:populov/gradle-save-ssd-plugin.git'
+                    url 'https://github.com/populov/gradle-save-ssd-plugin'
                     connection 'git@github.com:populov/gradle-save-ssd-plugin.git'
                     developerConnection 'git@github.com:populov/gradle-save-ssd-plugin.git'
                 }
