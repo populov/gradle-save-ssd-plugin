@@ -36,17 +36,20 @@ How to use
     
     apply plugin:'SaveSSD'
     ```
+    
 2.  **gradle.properties**
     
     ```
     saveSSD = true
     ```
+
 3. Perform *clean* task or delete */build* directory manually, than perform build (or other tasks) in your project as usual.
  
    ```shell
    gradle clean
    gradle build
    ```
+
    You also can run *saveSsd* task manually - it will run ignoring *saveSSD=true* check but it will do nothing while */build* directory exists and not empty.
 Example
 -------
