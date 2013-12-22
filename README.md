@@ -30,11 +30,11 @@ How to use
             }
         }
         dependencies {
-            classpath 'com.haunted.gradle-plugins:SaveSSD:+@jar'
+            classpath 'com.haunted.gradle-plugins:save-ssd:+@jar'
         }
     }
     
-    apply plugin:'SaveSSD'
+    apply plugin:'save-ssd'
     ```
     
 2.  **gradle.properties**

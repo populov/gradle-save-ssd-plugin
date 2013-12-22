@@ -9,31 +9,30 @@ public class SaveSSD implements Plugin<Project> {
     void apply(Project project) {
         this.project = project
         if (project.hasProperty("saveSSD")) {
-            println "saveSSD = ${project.saveSSD}"
             if (Boolean.parseBoolean(project.saveSSD) && getOSName() != 'windows') {
                 createLink(project.ant)
             }
         }
 
-        project.tasks("saveSsd") << {
+        project.task("saveSsd") << {
             createLink(project.ant)
         }
     }
 
     def createLink(AntBuilder ant) {
         File link = project.buildDir;
-        println "checking ${link}..."
         if (link.exists()) {
             if (link.listFiles().length != 0)
                 return;
+            println "SaveSSD: Delete ${link}"
             link.delete()
         }
 
         File target = getTmpBuildDir()
         if (target.mkdirs())
-            println "Created directory " + target;
+            println "SaveSSD: Created directory " + target;
         ant.symlink(link: link.absolutePath, resource: target.absolutePath, overwrite: true)
-        println "Creating link ${link} --> ${target}"
+        println "SaveSSD: Created link ${link} --> ${target}"
     }
 
     static String getOSName() {

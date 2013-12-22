@@ -1,5 +1,5 @@
 group = 'com.haunted.gradle-plugins'
-version = '0.1.0'
+version = '0.1.1'
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
@@ -40,7 +40,7 @@ uploadArchives {
                 authentication(userName: bintray_username, password: bintray_api_key)
             }
             pom.project {
-                artifactId 'SaveSSD'
+                artifactId 'save-ssd'
                 name 'SaveSSD'
                 packaging 'jar'
                 description 'Gradle plugin that helps to save your SSD write cycles by linking project build directory into /tmp on *nix.'
