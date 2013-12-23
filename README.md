@@ -33,7 +33,6 @@ How to use
             classpath 'com.haunted.gradle-plugins:save-ssd:+@jar'
         }
     }
-    
     apply plugin:'save-ssd'
     ```
     
@@ -43,14 +42,15 @@ How to use
     saveSSD = true
     ```
 
-3. Perform *clean* task or delete */build* directory manually, than perform build (or other tasks) in your project as usual.
+3.  Perform *clean* task or delete */build* directory manually, than perform build (or other tasks) in your project as usual.
  
-   ```shell
-   gradle clean
-   gradle build
-   ```
+    ```shell
+    gradle clean
+    gradle build
+    ```
 
-   You also can run *saveSsd* task manually - it will run ignoring *saveSSD=true* check but it will do nothing while */build* directory exists and not empty.
+    You also can run *saveSsd* task manually - it will run ignoring *saveSSD=true* check but it will do nothing while */build* directory exists and not empty.
+
 Example
 -------
 You can see a live code sample at [Android MarketBin](https://github.com/populov/MarketBin/tree/master/sample) project.
