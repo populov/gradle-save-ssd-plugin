@@ -53,4 +53,4 @@ How to use
 
 Example
 -------
-You can see a live code sample at [Android MarketBin](https://github.com/populov/MarketBin/tree/master/sample) project.
+You can see a live code sample at [Android MarketBin](https://github.com/populov/Android-MarketBin/tree/master/sample) project.
