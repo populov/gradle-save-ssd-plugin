@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Gradle Save SSD Plugin by populov</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/populov/gradle-save-ssd-plugin">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/populov/gradle-save-ssd-plugin/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/populov/gradle-save-ssd-plugin/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Gradle Save SSD Plugin</h1>
+          <p>Gradle plugin that helps to save your SSD write cycles by linking project build directory into /tmp on *nix.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/populov">populov</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="savessd-plugin-for-gradle" class="anchor" href="#savessd-plugin-for-gradle"><span class="octicon octicon-link"></span></a>SaveSSD plugin for Gradle</h1>
+
+<p>Gradle plugin that helps to save your SSD write cycles by linking project build directory into /tmp on *nix.</p>
+
+<h2>
+<a name="how-it-works" class="anchor" href="#how-it-works"><span class="octicon octicon-link"></span></a>How it works</h2>
+
+<p>It works on nix systems (Linux, BSD, Mac), assuming, that your <em>/tmp</em> directory is mounted as <em>tmpfs</em> and resides in computer's RAM (on Windows it just does nothing).
+Before project build <strong>SaveSSD</strong> checks, if <em>project.buildDir</em> directory exists in project. If it exists and not empty, it does nothing, else creates <em>/tmp/gradle/your-project-path</em> dir and creates <em>project.buildDir</em> symlink to it. So, your project structure remanes same as before, but temporary files, that are often rewritten, are kept in memory.</p>
+
+<p>Plugin can be enabled or disabled through project properties (in <em>gradle.properties</em> file), so different team members can enable or disable it individually. By default it does nothing until you set <em>saveSSD=true</em>.</p>
+
+<h3>
+<a name="pros" class="anchor" href="#pros"><span class="octicon octicon-link"></span></a>Pros</h3>
+
+<ul>
+<li>Extend SSD lifetime by reducing number of writes to it</li>
+<li>Speeds up build of small projects, because build files are kept in memory, so it can be usefull for HDD owners too</li>
+</ul><h3>
+<a name="cons" class="anchor" href="#cons"><span class="octicon octicon-link"></span></a>Cons</h3>
+
+<ul>
+<li>Your project <em>/build</em> dir contents will be lost on system reboot, relogin, etc.</li>
+<li>Increased memory usage</li>
+</ul><h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<ol>
+<li>
+<p><strong>gradle.build</strong></p>
+
+<div class="highlight highlight-groovy"><pre><span class="n">buildscript</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">maven</span> <span class="o">{</span>
+            <span class="n">url</span> <span class="s1">'http://dl.bintray.com/haunted-soft/maven'</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="n">classpath</span> <span class="s1">'com.haunted.gradle-plugins:save-ssd:+@jar'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="n">apply</span> <span class="nl">plugin:</span><span class="s1">'save-ssd'</span>
+</pre></div>
+</li>
+<li>
+<p><strong>gradle.properties</strong></p>
+
+<pre><code>saveSSD = true
+</code></pre>
+</li>
+<li>
+<p>Perform <em>clean</em> task or delete <em>/build</em> directory manually, than perform build (or other tasks) in your project as usual.</p>
+
+<pre lang="shell"><code>gradle clean
+gradle build
+</code></pre>
+
+<p>You also can run <em>saveSsd</em> task manually - it will run ignoring <em>saveSSD=true</em> check but it will do nothing while <em>/build</em> directory exists and not empty.</p>
+</li>
+</ol><h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>You can see a live code sample at <a href="https://github.com/populov/Android-MarketBin/tree/master/sample">Android MarketBin</a> project.</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
