@@ -4,10 +4,16 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 public class SaveSSD implements Plugin<Project> {
-    private String tmpRoot = '/tmp/gradle/'
+    private String saveSSDRoot = '/tmp/gradle/'
+    private String tag = "SaveSSD"
     private Project project
     void apply(Project project) {
         this.project = project
+
+        String version = SaveSSD.getPackage().getImplementationVersion();
+        if (version != null)
+            tag = "${tag} (${version})";
+
         if (project.hasProperty("saveSSD")) {
             if (Boolean.parseBoolean(project.saveSSD) && getOSName() != 'windows') {
                 createLink(project.ant)
@@ -24,15 +30,16 @@ public class SaveSSD implements Plugin<Project> {
         if (link.exists()) {
             if (link.listFiles().length != 0)
                 return;
-            println "SaveSSD: Delete ${link}"
+            println "${tag}: Delete ${link}"
             link.delete()
         }
 
         File target = getTmpBuildDir()
+
         if (target.mkdirs())
-            println "SaveSSD: Created directory " + target;
+            println "${tag}: Created directory ${target}";
         ant.symlink(link: link.absolutePath, resource: target.absolutePath, overwrite: true)
-        println "SaveSSD: Created link ${link} --> ${target}"
+        println "${tag}: Created link ${link} --> ${target}"
     }
 
     static String getOSName() {
@@ -55,6 +62,16 @@ public class SaveSSD implements Plugin<Project> {
             path = p.name + '/' + path
             p = p.getParent()
         }
-        return new File(tmpRoot + path)
+
+        if (project.hasProperty("saveSSDRoot")) {
+            String newRoot = project.saveSSDRoot;
+            if (newRoot != null && !newRoot.isEmpty()) {
+                if (!newRoot.endsWith("/"))
+                    newRoot = newRoot + "/";
+                saveSSDRoot = newRoot;
+            }
+        }
+
+        return new File(saveSSDRoot + path)
     }
 }

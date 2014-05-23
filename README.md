@@ -39,8 +39,16 @@ How to use
 2.  **gradle.properties**
     
     ```
-    saveSSD = true
+    saveSSD=true
     ```
+    
+    Optionally, you can set
+    
+    ```
+    saveSSDRoot=/some/path 
+    ```
+    
+    to link build directory in other path, than */tmp/gradle/*
 
 3.  Perform *clean* task or delete */build* directory manually, than perform build (or other tasks) in your project as usual.
  

@@ -1,5 +1,5 @@
 group = 'com.haunted.gradle-plugins'
-version = '0.1.1'
+version = '0.2.0'
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
@@ -16,7 +16,9 @@ dependencies {
 jar {
     manifest {
         attributes 'Implementation-Title': 'Gradle SaveSSD plugin',
+                'Implementation-Vendor': 'Haunted Soft',
                 'Implementation-Version': version,
+                'Created-By': 'Serge Populov',
                 'Built-By': System.getProperty('user.name'),
                 'Built-Date': new Date(),
                 'Built-JDK': System.getProperty('java.version'),
@@ -74,5 +76,5 @@ uploadArchives {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.9'
+    gradleVersion = '1.12'
 }
