@@ -6,6 +6,7 @@
     <title>Gradle Save SSD Plugin by populov</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
     <!--[if lt IE 9]>
@@ -88,6 +89,13 @@ Before project build <strong>SaveSSD</strong> checks, if <em>project.buildDir</e
 
 <pre><code>saveSSD = true
 </code></pre>
+
+<p>Optionally, you can set</p>
+
+<pre><code>saveSSDRoot=/some/path
+</code></pre>
+
+<p>to link build directory in other path, than <em>/tmp/gradle/</em></p>
 </li>
 <li>
 <p>Perform <em>clean</em> task or delete <em>/build</em> directory manually, than perform build (or other tasks) in your project as usual.</p>
